@@ -119,7 +119,7 @@ books.insertMany(booksData).then((insertedBooks) => {
     }
 
 }).catch((error) => {
-    console.log("An error occured.", error.message);
+    console.log("An error occured.", error);
 })
 
 connectDB();
