@@ -6,7 +6,7 @@ const booksData = [
     {
         title: "Book1",
         author: "Author1",
-        price: 15,
+        price: 35,
         stock: 1000
     },
     {
@@ -24,13 +24,13 @@ const booksData = [
     {
         title: "Book4",
         author: "Author4",
-        price: 35,
+        price: 15,
         stock: 300
     },
     {
         title: "Book5",
         author: "Author5",
-        price: 25,
+        price: 45,
         stock: 90
     }
 ]
@@ -41,7 +41,7 @@ books.insertMany(booksData).then((insertedBooks) => {
     if (insertedBooks.length === 0) {
         console.log("No Books inserted");
     } else {
-        console.log("Inserted books successfully.", insertedBooks);
+        console.log("Inserted books successfully. Inserted Books : ", insertedBooks);
     }
 
     // Retrieving all documents from the books collection.
@@ -74,7 +74,7 @@ books.insertMany(booksData).then((insertedBooks) => {
     if (!updatedBook) {
         console.log("Book not found to update.");
     } else {
-        console.log("Updated book successfully.", updatedBook);
+        console.log("Updated book successfully. Updated Book : ", updatedBook);
     }
 
     // Deleting a book by its title from the books collection.
@@ -96,7 +96,7 @@ books.insertMany(booksData).then((insertedBooks) => {
     if (booksFoundByPriceRange.length === 0) {
         console.log("No books found in the given price range of $10 and $20.");
     } else {
-        console.log("Books found successfully in the given price range of $10 and $20.", booksFoundByPriceRange);
+        console.log("Books found successfully in the given price range of $10 and $20. Books Found : ", booksFoundByPriceRange);
     }
 
     // Counting the total number of books in the books collection.
@@ -114,7 +114,7 @@ books.insertMany(booksData).then((insertedBooks) => {
     if (booksSorted.length === 0) {
         console.log("No books available to sort.");
     } else {
-        console.log("Books sorted successfully.", booksSorted);
+        console.log("Books sorted successfully. Sorted Books : ", booksSorted);
     }
 
 }).catch((error) => {
