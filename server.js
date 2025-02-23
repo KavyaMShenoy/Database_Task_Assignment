@@ -67,7 +67,8 @@ books.insertMany(booksData).then((insertedBooks) => {
     }
 
     // Updating the price and stock for a specific book in the books collection.
-    return books.findOneAndUpdate({ title: "Book1" }, { $set: { price: 25, stock: 500 } }, { new: true });
+    const bookId = "67bac6d12780c690f6c1bdcc";
+    return books.findByIdAndUpdate(bookId, { $set: { price: 25, stock: 500 } }, { new: true });
 
 }).then((updatedBook) => {
 
