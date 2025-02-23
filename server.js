@@ -12,7 +12,7 @@ const booksData = [
     {
         title: "Book2",
         author: "Author2",
-        price: 100,
+        price: 10,
         stock: 100
     },
     {
@@ -24,13 +24,13 @@ const booksData = [
     {
         title: "Book4",
         author: "Author4",
-        price: 85,
-        stock: 500
+        price: 35,
+        stock: 300
     },
     {
         title: "Book5",
         author: "Author5",
-        price: 35,
+        price: 25,
         stock: 90
     }
 ]
@@ -38,45 +38,69 @@ const booksData = [
 // Inserting multiple book records into the books collection.
 books.insertMany(booksData).then((insertedBooks) => {
 
-    console.log("Inserted books successfully.", insertedBooks);
+    if (insertedBooks.length === 0) {
+        console.log("No Books inserted");
+    } else {
+        console.log("Inserted books successfully.", insertedBooks);
+    }
 
     // Retrieving all documents from the books collection.
     return books.find();
 
 }).then((booksFound) => {
 
-    console.log("All Books : ", booksFound);
+    if (booksFound.length === 0) {
+        console.log("No books found.");
+    } else {
+        console.log("All books : ", booksFound);
+    }
 
     // Finding all books written by a specific author in the books collection.
     return books.find({ author: "Author3" });
 
 }).then((booksFoundByAuthor) => {
 
-    console.log("Books written by given author : ", booksFoundByAuthor);
+    if (booksFoundByAuthor.length === 0) {
+        console.log("No Book found written by given author.");
+    } else {
+        console.log("Books written by given author : ", booksFoundByAuthor);
+    }
 
     // Updating the price and stock for a specific book in the books collection.
-    return books.findOneAndUpdate({ title: "Book1" }, { $set: { price: "25", stock: "500" } });
+    return books.findOneAndUpdate({ title: "Book1" }, { $set: { price: 25, stock: 500 } }, { new: true });
 
-}).then(() => {
+}).then((updatedBook) => {
 
-    console.log("Updated book successfully.");
+    if (!updatedBook) {
+        console.log("Book not found to update.");
+    } else {
+        console.log("Updated book successfully.", updatedBook);
+    }
 
     // Deleting a book by its title from the books collection.
     return books.deleteOne({ title: "Book2" });
 
-}).then(() => {
+}).then((deletedBook) => {
 
-    console.log("Book deleted successfully.");
+    if (deletedBook.deletedCount === 0) {
+        console.log("Book not found to delete.");
+    } else {
+        console.log("Book deleted successfully.");
+    }
 
     // Finding books priced between $10 and $20 in the books collection.
-    return books.find({ price: { $gte: "10", $lte: "20" } });
+    return books.find({ price: { $gte: 10, $lte: 20 } });
 
 }).then((booksFoundByPriceRange) => {
 
-    console.log("Books found successfully in the given price range of $10 and $20.", booksFoundByPriceRange);
+    if (booksFoundByPriceRange.length === 0) {
+        console.log("No books found in the given price range of $10 and $20.");
+    } else {
+        console.log("Books found successfully in the given price range of $10 and $20.", booksFoundByPriceRange);
+    }
 
     // Counting the total number of books in the books collection.
-    return books.find().countDocuments();
+    return books.countDocuments();
 
 }).then((booksCount) => {
 
@@ -87,10 +111,14 @@ books.insertMany(booksData).then((insertedBooks) => {
 
 }).then((booksSorted) => {
 
-    console.log("Books sorted successfully.", booksSorted);
+    if (booksSorted.length === 0) {
+        console.log("No books available to sort.");
+    } else {
+        console.log("Books sorted successfully.", booksSorted);
+    }
 
 }).catch((error) => {
-    console.log("An error occured.", error);
+    console.log("An error occured.", error.message);
 })
 
 connectDB();
